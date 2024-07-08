@@ -10,14 +10,16 @@ import 'package:super_dash/game/game.dart';
 
 class _TestGame extends FlameGame with HasKeyboardHandlerComponents {}
 
-class _MockRawKeyUpEvent extends Mock implements RawKeyUpEvent {
+// class _MockRawKeyUpEvent extends Mock implements RawKeyUpEvent {
+class _MockRawKeyUpEvent extends Mock implements KeyUpEvent {
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return '';
   }
 }
 
-class _MockRawKeyDownEvent extends Mock implements RawKeyDownEvent {
+// class _MockRawKeyDownEvent extends Mock implements RawKeyDownEvent {
+class _MockRawKeyDownEvent extends Mock implements KeyDownEvent {
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return '';
