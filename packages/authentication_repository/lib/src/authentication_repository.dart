@@ -71,6 +71,17 @@ class AuthenticationRepository {
     }
   }
 
+  /// Singin using username and password
+  ///
+  Future<fb.UserCredential> signInWithEmailAndPassword(
+      String email, String password) async {
+    final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    return userCredential;
+  }
+
   /// Disposes any internal resources.
   void dispose() {
     _firebaseUserSubscription?.cancel();
