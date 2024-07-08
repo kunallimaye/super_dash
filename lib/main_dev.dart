@@ -29,7 +29,7 @@ void main() async {
   await audio.initialize();
 
   final share = ShareController(
-    gameUrl: 'https://endless-runner-9481713-383737.web.app/',
+    gameUrl: 'https://kunal-scratch.web.app/',
   );
 
   final leaderboardRepository = LeaderboardRepository(

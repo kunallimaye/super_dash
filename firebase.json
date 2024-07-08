@@ -1,90 +1,22 @@
 {
-  "hosting": [
-    {
-      "target": "app_dev",
-      "public": "build/web",
-      "cleanUrls": true,
-      "trailingSlash": false,
-      "ignore": [
-        ".firebase",
-        "firebase.json",
-        "functions/node_modules",
-        "functions/src",
-        "__/**"
-      ],
-      "headers": [
-        {
-          "source": "**/*.@(eot|otf|ttf|ttc|woff|font.css)",
-          "headers": [
-            {
-              "key": "Access-Control-Allow-Origin",
-              "value": "*"
-            }
-          ]
-        },
-        {
-          "source": "**/*.@(jpg|jpeg|gif|png)",
-          "headers": [
-            {
-              "key": "Cache-Control",
-              "value": "max-age=3600"
-            }
-          ]
-        },
-        {
-          "source": "**",
-          "headers": [
-            {
-              "key": "Cache-Control",
-              "value": "no-cache, no-store, must-revalidate"
-            }
-          ]
+  "hosting": {
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  },
+  "flutter": {
+    "platforms": {
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "kunal-scratch",
+          "configurations": {
+            "web": "1:550614207330:web:c07f2a94f74eda19b77a3b"
+          }
         }
-      ],
-      "predeploy": []
-    },
-    {
-      "target": "app_prod",
-      "public": "build/web",
-      "cleanUrls": true,
-      "trailingSlash": false,
-      "ignore": [
-        ".firebase",
-        "firebase.json",
-        "functions/node_modules",
-        "functions/src",
-        "__/**"
-      ],
-      "headers": [
-        {
-          "source": "**/*.@(eot|otf|ttf|ttc|woff|font.css)",
-          "headers": [
-            {
-              "key": "Access-Control-Allow-Origin",
-              "value": "*"
-            }
-          ]
-        },
-        {
-          "source": "**/*.@(jpg|jpeg|gif|png)",
-          "headers": [
-            {
-              "key": "Cache-Control",
-              "value": "max-age=3600"
-            }
-          ]
-        },
-        {
-          "source": "**",
-          "headers": [
-            {
-              "key": "Cache-Control",
-              "value": "no-cache, no-store, must-revalidate"
-            }
-          ]
-        }
-      ],
-      "predeploy": []
+      }
     }
-  ]
+  }
 }
