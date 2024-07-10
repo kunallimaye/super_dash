@@ -31,6 +31,11 @@ class AuthenticationRepository {
   final StreamController<User> _userController;
   StreamSubscription<fb.User?>? _firebaseUserSubscription;
 
+  /// Returns the currently signed in User
+  User? get currentUser {
+    return _firebaseAuth.currentUser!.toUser;
+  }
+
   /// Stream of [User] which will emit the current user when
   /// the authentication state changes.
   ///
@@ -71,15 +76,19 @@ class AuthenticationRepository {
     }
   }
 
-  /// Singin using username and password
+  /// Sign-in using username and password
   ///
-  Future<fb.UserCredential> signInWithEmailAndPassword(
-      String email, String password) async {
-    final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
-    return userCredential;
+  /// If the sign in fails, an [AuthenticationException] is thrown.
+  Future<void> signInWithEmailAndPassword(String email, String password) async {
+    try {
+      final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      _userController.add(userCredential.toUser);
+    } on Exception catch (error, stackTrace) {
+      throw AuthenticationException(error, stackTrace);
+    }
   }
 
   /// Disposes any internal resources.
