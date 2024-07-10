@@ -1,6 +1,7 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:super_dash/game/game.dart';
 
 part 'game_event.dart';
 part 'game_state.dart';
@@ -12,6 +13,15 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<GameScoreDecreased>(_onGameScoreDecreased);
     on<GameOver>(_onGameOver);
     on<GameSectionCompleted>(_onGameSectionCompleted);
+    on<GameItemCollected>(_onGameItemCollected);
+  }
+
+  void _onGameItemCollected(
+    GameItemCollected event,
+    Emitter<GameState> emit,
+  ) {
+    print('User [${state.currentUser.id}] collected ${event.itemType}');
+    emit(state);
   }
 
   void _onGameScoreIncreased(

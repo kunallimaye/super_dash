@@ -192,8 +192,10 @@ class Player extends JumperCharacter<SuperDashGame> {
             gameRef.gameBloc.add(
               GameScoreIncreased(by: collision.type.points),
             );
+            gameRef.gameBloc.add(GameItemCollected(itemType: collision.type));
           case ItemType.goldenFeather:
             addPowerUp();
+            gameRef.gameBloc.add(GameItemCollected(itemType: collision.type));
             gameRef.audioController.playSfx(Sfx.featherPowerup);
         }
         gameRef.world.add(

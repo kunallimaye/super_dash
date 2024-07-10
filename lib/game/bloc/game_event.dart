@@ -16,6 +16,14 @@ final class GameScoreIncreased extends GameEvent {
   List<Object> get props => [by];
 }
 
+final class GameItemCollected extends GameEvent {
+  const GameItemCollected({this.itemType = ItemType.acorn});
+
+  final ItemType itemType;
+  @override
+  List<Object?> get props => [itemType];
+}
+
 final class GameScoreDecreased extends GameEvent {
   const GameScoreDecreased({this.by = 1});
 
