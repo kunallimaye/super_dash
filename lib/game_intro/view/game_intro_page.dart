@@ -1,6 +1,7 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:super_dash/authentication/authentication.dart';
 import 'package:super_dash/constants/constants.dart';
 import 'package:super_dash/game/game.dart';
 import 'package:super_dash/game_intro/game_intro.dart';
@@ -39,18 +40,18 @@ class _GameIntroPageState extends State<GameIntroPage> {
             fit: BoxFit.cover,
           ),
         ),
-        child: const _IntroPage(),
-        // child: isMobileWeb
-        //     ? _MobileWebNotAvailableIntroPage(onDownload: _onDownload)
-        //     : const _IntroPage(),
+        child: isMobileWeb
+            ? _MobileWebNotAvailableIntroPage(onDownload: _onDownload)
+            : const _IntroPage(),
       ),
     );
   }
 
-  bool get isMobileWeb =>
-      kIsWeb &&
-      (defaultTargetPlatform == TargetPlatform.android ||
-          defaultTargetPlatform == TargetPlatform.iOS);
+  // NOTE: forcing non mobile webpage
+  bool get isMobileWeb => false;
+  // kIsWeb &&
+  // (defaultTargetPlatform == TargetPlatform.android ||
+  //     defaultTargetPlatform == TargetPlatform.iOS);
 }
 
 class _IntroPage extends StatelessWidget {
@@ -60,6 +61,11 @@ class _IntroPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final theme = Theme.of(context);
+    // context.select(
+    //   (AuthenticationRepository authRepo) =>
+    //       print('User: ${authRepo.currentUser!.id}'),
+    // );
+
     return Center(
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 390),
@@ -87,9 +93,17 @@ class _IntroPage extends StatelessWidget {
               onPressed: () => Navigator.of(context).push(Game.route()),
             ),
             const Spacer(),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //   children: [
+            //     Text('Welcome, [${currentUser.getID()}]'),
+            //   ],
+            // ),
+            // const Spacer(),
             const Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                LoginButton(),
                 AudioButton(),
                 LeaderboardButton(),
                 InfoButton(),

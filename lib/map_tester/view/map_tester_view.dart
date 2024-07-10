@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:file_selector/file_selector.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/foundation.dart';
@@ -54,7 +55,7 @@ class _MapTesterViewState extends State<MapTesterView> {
         setState(() {
           rootPath = directory;
           game = SuperDashGame(
-            gameBloc: GameBloc(),
+            gameBloc: GameBloc(User.unauthenticated),
             customBundle: FileSystemAssetBundle(directory),
             audioController: context.read(),
             inMapTester: true,
@@ -64,7 +65,7 @@ class _MapTesterViewState extends State<MapTesterView> {
     } else {
       setState(() {
         game = SuperDashGame(
-          gameBloc: GameBloc(),
+          gameBloc: GameBloc(User.unauthenticated),
           audioController: context.read(),
           inMapTester: true,
         );
@@ -76,14 +77,14 @@ class _MapTesterViewState extends State<MapTesterView> {
     late SuperDashGame newGame;
     if (!kIsWeb && Platform.isMacOS) {
       newGame = SuperDashGame(
-        gameBloc: GameBloc(),
+        gameBloc: GameBloc(User.unauthenticated),
         audioController: context.read(),
         customBundle: FileSystemAssetBundle(rootPath!),
         inMapTester: true,
       );
     } else {
       newGame = SuperDashGame(
-        gameBloc: GameBloc(),
+        gameBloc: GameBloc(User.unauthenticated),
         audioController: context.read(),
         inMapTester: true,
       );

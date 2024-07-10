@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,12 +17,19 @@ class _MockGameBloc extends MockBloc<GameEvent, GameState>
 
 class _MockSettingsController extends Mock implements SettingsController {}
 
+class _MockAuthenticationRepository extends Mock
+    implements AuthenticationRepository {}
+
 void main() {
   late SettingsController settingsController;
+  late AuthenticationRepository authenticationRespository;
 
   setUp(() {
     settingsController = _MockSettingsController();
+    authenticationRespository = _MockAuthenticationRepository();
     when(() => settingsController.muted).thenReturn(ValueNotifier(true));
+    when(() => authenticationRespository.currentUser)
+        .thenReturn(User.unauthenticated);
   });
 
   group('Game', () {
@@ -57,6 +65,7 @@ void main() {
       await tester.pumpApp(
         buildSubject(),
         settingsController: settingsController,
+        authenticationRespository: authenticationRespository,
       );
 
       final context = tester.element(find.byType(ScoreLabel));

@@ -1,3 +1,4 @@
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -14,12 +15,16 @@ class _MockSettingsController extends Mock implements SettingsController {}
 class _MockLeaderboardRepository extends Mock
     implements LeaderboardRepository {}
 
+class _MockAuthenticationRepository extends Mock
+    implements AuthenticationRepository {}
+
 extension PumpApp on WidgetTester {
   Future<void> pumpApp(
     Widget widget, {
     AudioController? audioController,
     SettingsController? settingsController,
     LeaderboardRepository? leaderboardRepository,
+    AuthenticationRepository? authenticationRespository,
   }) {
     return pumpWidget(
       MaterialApp(
@@ -35,6 +40,10 @@ extension PumpApp on WidgetTester {
             ),
             RepositoryProvider.value(
               value: leaderboardRepository ?? _MockLeaderboardRepository(),
+            ),
+            RepositoryProvider.value(
+              value:
+                  authenticationRespository ?? _MockAuthenticationRepository(),
             ),
           ],
           child: widget,

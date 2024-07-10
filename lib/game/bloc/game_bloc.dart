@@ -1,3 +1,4 @@
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -5,7 +6,8 @@ part 'game_event.dart';
 part 'game_state.dart';
 
 class GameBloc extends Bloc<GameEvent, GameState> {
-  GameBloc() : super(const GameState.initial()) {
+  GameBloc(User? user)
+      : super(const GameState.initial().copyWith(currentUser: user)) {
     on<GameScoreIncreased>(_onGameScoreIncreased);
     on<GameScoreDecreased>(_onGameScoreDecreased);
     on<GameOver>(_onGameOver);
@@ -16,6 +18,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     GameScoreIncreased event,
     Emitter<GameState> emit,
   ) {
+    print(
+      'Increasing pts for user ${state.currentUser.id} by ${event.by}',
+    );
     emit(
       state.copyWith(
         score: state.score + event.by,

@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:super_dash/game/bloc/game_bloc.dart';
 
@@ -21,7 +22,12 @@ void main() {
     test('returns object with updated score when score is passed', () {
       expect(
         GameState.initial().copyWith(score: 100),
-        GameState(score: 100, currentLevel: 1, currentSection: 0),
+        GameState(
+          score: 100,
+          currentLevel: 1,
+          currentSection: 0,
+          currentUser: User.unauthenticated,
+        ),
       );
     });
 
@@ -30,7 +36,12 @@ void main() {
       () {
         expect(
           GameState.initial().copyWith(currentLevel: 2),
-          GameState(score: 0, currentLevel: 2, currentSection: 0),
+          GameState(
+            score: 0,
+            currentLevel: 2,
+            currentSection: 0,
+            currentUser: User.unauthenticated,
+          ),
         );
       },
     );
@@ -38,7 +49,12 @@ void main() {
     test('returns object with updated currentSection when score is passed', () {
       expect(
         GameState.initial().copyWith(currentSection: 3),
-        GameState(score: 0, currentLevel: 1, currentSection: 3),
+        GameState(
+          score: 0,
+          currentLevel: 1,
+          currentSection: 3,
+          currentUser: User.unauthenticated,
+        ),
       );
     });
   });
