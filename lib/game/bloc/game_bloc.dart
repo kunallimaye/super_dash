@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:super_dash/game/game.dart';
 
 part 'game_event.dart';
@@ -15,6 +18,42 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<GameSectionCompleted>(_onGameSectionCompleted);
     on<GameItemCollected>(_onGameItemCollected);
   }
+  final channel = WebSocketChannel.connect(
+      Uri.parse('wss://item-collected-2rejqy6csq-uc.a.run.app'));
+  // final String functionName = 'SendToPubsub';
+
+  // Future<http.Response> sendToPubsub(
+  //   String playerID,
+  //   String itemType,
+  //   String points,
+  // ) async {
+  //   final response = await http.post(
+  //     Uri.parse(
+  //         'https://us-central1-kunal-scratch.cloudfunctions.net/SendToPubsub'),
+  //     headers: <String, String>{
+  //       'Content-Type': 'application/json; charset=UTF-8',
+  //     },
+  //     body: jsonEncode(<String, String>{
+  //       'action': 'transfer',
+  //       'itemType': itemType,
+  //       'playerID': playerID,
+  //       'points': points,
+  //     }),
+  //   );
+
+  //   return response;
+
+  //   // try {
+  //   //   FirebaseFunctions.instance.httpsCallable(functionName).call({
+  //   //     'action': 'transfer',
+  //   //     'itemType': itemType,
+  //   //     'playerID': playerID,
+  //   //     'points': points,
+  //   //   });
+  //   // } on FirebaseFunctionsException catch (error) {
+  //   //   print(error.message);
+  //   // }
+  // }
 
   void _onGameItemCollected(
     GameItemCollected event,
@@ -22,6 +61,15 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   ) {
     print('User [${state.currentUser.id}] collected ${event.itemType}');
     emit(state);
+    // sendToPubsub(state.currentUser.id, event.itemType as String, '0');
+    channel.sink.add(
+      jsonEncode(<String, String>{
+        'action': 'transfer',
+        'itemType': '${event.itemType}',
+        'playerID': state.currentUser.id,
+        'points': '',
+      }),
+    );
   }
 
   void _onGameScoreIncreased(
@@ -35,6 +83,15 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       state.copyWith(
         score: state.score + event.by,
       ),
+    );
+    // sendToPubsub(state.currentUser.id, ',', event.by as String);
+    channel.sink.add(
+      jsonEncode(<String, String>{
+        'action': 'transfer',
+        'itemType': '',
+        'playerID': state.currentUser.id,
+        'points': '${event.by}',
+      }),
     );
   }
 
