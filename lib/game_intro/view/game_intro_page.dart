@@ -103,7 +103,7 @@ class _IntroPage extends StatelessWidget {
             const Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                LoginButton(),
+                // LoginButton(),
                 AudioButton(),
                 LeaderboardButton(),
                 InfoButton(),

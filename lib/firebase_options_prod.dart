@@ -47,13 +47,12 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyA7lohelWIsP8iODZvXRcmOEDFPUTlbSs0',
-    appId: '1:842728648829:web:b1dbad1d0fba7fded18114',
-    messagingSenderId: '842728648829',
-    projectId: 'super-dash-game',
-    authDomain: 'super-dash-game.firebaseapp.com',
-    storageBucket: 'super-dash-game.appspot.com',
-  );
+      apiKey: "AIzaSyAhBcmGhvCA4iq9xi5ugIMHuAh3kPvDrqs",
+      authDomain: "kunal-scratch.firebaseapp.com",
+      projectId: "kunal-scratch",
+      storageBucket: "kunal-scratch.appspot.com",
+      messagingSenderId: "550614207330",
+      appId: "1:550614207330:web:a46affebb49ba728b77a3b");
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDQ6PeqfRVwC6UMk1RUlBSMuKOWJ3ZWvRY',
